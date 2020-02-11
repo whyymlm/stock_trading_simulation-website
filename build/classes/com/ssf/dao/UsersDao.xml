@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须对应接口的路径，类似该xml配置文件是该接口的"实现类"-->
+<mapper namespace="com.ssf.dao.IUsersMapper">
+    <!-- 实体类对象和mysql表的对应关系 
+     private int uid,uage,uifdel;
+   private String uname,upwd,udate,utest;-->
+    <resultMap id="UserResults" type="com.ssf.entity.User">
+     <id column="uid" property="uid" jdbcType="INTEGER" javaType="Integer" />        
+     <result column="uage" property="uage" jdbcType="INTEGER" javaType="Integer" /> 
+     <result column="uname" property="uname" jdbcType="VARCHAR" javaType="string"/>  
+     <result column="upwd" property="upwd" jdbcType="VARCHAR" javaType="string"/>  
+     <result column="ubirthdate" property="ubirthdate" jdbcType="DATE" javaType="string"/>
+     <result column="ue_mail" property="ue_mail" jdbcType="VARCHAR" javaType="string"/>
+     <result column="udate" property="udate" jdbcType="DATE" javaType="string"/>
+     <result column="uasset" property="uasset" jdbcType="DOUBLE" javaType="Double"/>
+     <result column="usex" property="usex" jdbcType="CHAR" javaType="string"/>
+     <result column="img" property="img" jdbcType="CHAR" javaType="string"/>
+     <result column="location" property="location" jdbcType="CHAR" javaType="string"/>             
+    </resultMap>      
+   
+   <resultMap id="StockResults" type="com.ssf.entity.Stock">
+     <id column="sid" property="sid" jdbcType="CHAR" javaType="string" />        
+     <result column="sname" property="sname" jdbcType="CHAR" javaType="string" /> 
+     <result column="openTod" property="openTod" jdbcType="CHAR" javaType="string"/>  
+     <result column="closeYes" property="closeYes" jdbcType="CHAR" javaType="string"/>  
+     <result column="volume" property="volume" jdbcType="INTEGER" javaType="Integer"/>  
+     <result column="turnover" property="turnover" jdbcType="INTEGER" javaType="Integer"/>          
+    </resultMap> 
+    
+    <resultMap id="SubScribeResults" type="com.ssf.entity.Subscribe">
+     <id column="sid" property="sid" jdbcType="CHAR" javaType="string" />        
+     <result column="uid" property="uid" jdbcType="CHAR" javaType="string" /> 
+     <result column="sname" property="sname" jdbcType="CHAR" javaType="string"/>
+     <result column="cid" property="cid" jdbcType="INTEGER" javaType="Integer"/> 
+     <result column="numberOfResults" property="numberOfResults" jdbcType="VARCHAR" javaType="string"/>           
+    </resultMap> 
+    
+    <resultMap id="HoldshareResults" type="com.ssf.entity.Holdshare">
+     <id column="hoid" property="hoid" jdbcType="INTEGER" javaType="Integer" />
+     <result column="sid" property="sid" jdbcType="VARCHAR" javaType="string"/>        
+     <result column="sname" property="sname" jdbcType="VARCHAR" javaType="string"/>  
+     <result column="uid" property="uid" jdbcType="VARCHAR" javaType="string"/>  
+     <result column="hvolume" property="hvolume" jdbcType="INTEGER" javaType="Integer"/>          
+     <result column="numberOfResults" property="numberOfResults" jdbcType="VARCHAR" javaType="string"/> 
+    </resultMap> 
+    
+          
+  
+   <!-- public User SelectUserByLogin(String uname,String upwd); 
+   <select id="SelectUserByLogin" id属性一定要和接口名一致，相似的理解<select>是接口方法名对应的方法体
+   #{2}：就是赋值的第二个参数
+   SelectStockById(sinfo);
+	SelectStockByName-->
+    <select id="SelectUserByLogin" resultMap="UserResults"
+     parameterType="String">
+      SELECT * from user where uid=#{0} and upwd=#{1};
+    </select>
+    <insert id="UserRegester" parameterType="String">
+      INSERT INTO user (uid,uname,upwd,udate) VALUES (#{0}, #{1}, #{2}, Now());
+    </insert>
+    
+     <select id="SelectStockAll" resultMap="StockResults">
+      SELECT * from stock ;
+    </select>
+    <select id="SelectUserByUid" resultMap="UserResults"
+     parameterType="String">
+      SELECT * from user where uid=#{0};
+    </select>
+    <select id="SelectStockById" resultMap="StockResults" parameterType="string">
+      SELECT * from stock where sid like "%"#{0}"%" ;
+    </select>
+    <select id="SelectStockByName" resultMap="StockResults" parameterType="string">
+      SELECT * from stock where sname like "%"#{0}"%"  ;
+    </select>
+    <insert id="addSubscribe" parameterType="String">
+      INSERT INTO concernshares (uid,sid,sname) VALUES (#{0}, #{1}, #{2});
+    </insert>
+    <select id="SelectMySubscribe" resultMap="StockResults">
+      select stock.sid,stock.sname,stock.openTod,stock.closeYes,stock.volume,stock.turnover from stock join concernshares on (stock.sid = concernshares.sid and concernshares.uid = #{0}) 
+    </select>
+    <insert id="removeSubscribe" parameterType="String">
+      delete from  concernshares where uid =#{0} and sid = #{1} ;
+    </insert>
+    <select id="searchSubscribeExistence" resultMap="SubScribeResults">
+     select * from concernshares where uid = #{0} and sid = #{1};  
+    </select>
+    
+    <select id="searchHoldExistence" resultMap="HoldshareResults">
+     select * from holdshares where uid = #{0} and sid = #{1};  
+    </select>
+    
+    <select id="SelectMyHold" resultMap="StockResults">
+      select stock.sid,stock.sname,stock.openTod,stock.closeYes,stock.volume,stock.turnover from stock join holdshares on (stock.sid = holdshares.sid and holdshares.uid = #{0}) 
+    </select>
+    
+    <select id="SelectHoldshareByUid" resultMap="HoldshareResults">
+      SELECT * from holdshares where uid=#{0};
+    </select>
+    
+    <update id="updatePwd" parameterType="String">
+      update user set upwd = #{1} where uid = #{0} ;
+    </update>
+    
+    <update id="updateUser" parameterType="String">
+      update user set uname = #{1}, ue_mail = #{2}, uwechat = #{3}, uqq = #{4}, usex = #{5}, location = #{6},ubirthdate = #{7}  where uid = #{0} ;
+    </update>
+    
+    <update id="storeImg" parameterType="String">
+      update user set img = #{1}  where uid = #{0} ;
+    </update>
+    
+    <update id="updateHoldshare" >
+      update holdshares set hvolume = hvolume + #{2}  where uid = #{0} and sid = #{1} ;
+    </update>
+    
+     <insert id="addHoldshare" >
+      INSERT INTO holdshares (uid,sid,sname,hvolume) VALUES (#{0}, #{1}, #{2},#{3});
+    </insert>
+    
+    <update id="changeMoney" >
+      update user set uasset = uasset - #{1}  where uid = #{0} ;
+    </update>
+     
+     <insert id="addReserve" >
+      INSERT INTO holdsharereserves (hoid,uid,sid,sname,ovolume,oprice,otime) VALUES (#{0}, #{1}, #{2},#{3}, #{4},#{5},Now() );
+    </insert>
+    
+    <select id="numberOfHold" resultMap="HoldshareResults">
+     select count(*) as numberOfResults from holdshares where uid = #{0};  
+    </select>
+    
+    <select id="numberOfConcern" resultMap="SubScribeResults" >
+     select count(*)as numberOfResults from concernshares where uid =#{0} ;
+    </select>
+    
+   
+</mapper>

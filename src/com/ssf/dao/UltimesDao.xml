@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须对应接口的路径，类似该xml配置文件是该接口的"实现类" -->
+<mapper namespace="com.ssf.dao.IUltimesMapper">
+	<resultMap id="UltimeResults" type="com.ssf.entity.Ultime">
+		<id column="uid" property="uid" jdbcType="VARCHAR" javaType="string" />
+		<result column="ltime" property="ltime" jdbcType="VARCHAR"
+			javaType="string" />
+	</resultMap>
+	<insert id="AddUltime" parameterType="com.ssf.entity.Ultime">
+		insert into ultime values(#{uid},Now());
+	</insert>
+	<select id="SelectUltimeAll" resultMap="UltimeResults">
+		SELECT * from ultime;
+	</select>
+</mapper>

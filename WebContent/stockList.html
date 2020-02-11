@@ -1,0 +1,370 @@
+﻿<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->  
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->  
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->  
+<head>
+    <title></title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">    
+    <link rel="shortcut icon" href="favicon.ico">  
+    <!---<link href='http://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700,700italic,900,900italic,300italic,300' rel='stylesheet' type='text/css'> 
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,700,300,100' rel='stylesheet' type='text/css'>--->
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="assets1/plugins/bootstrap/css/bootstrap.min.css"> 
+    <link href="css/style4.css" rel="stylesheet" type="text/css" media="all" />  
+    <!-- Plugins CSS -->    
+    <link rel="stylesheet" href="assets1/plugins/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="assets1/plugins/flexslider/flexslider.css">
+    <link rel="stylesheet" href="css/button.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <!-- Theme CSS -->
+    
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all" /> 
+  	<link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  	<link rel="stylesheet" href="css/bootstrap-table.css" />
+  	<link href="js/advanced-datatable/css/demo_page.css" rel="stylesheet" />
+  	<link href="js/advanced-datatable/css/demo_table.css" rel="stylesheet" />
+ 	<link rel="stylesheet" href="js/data-tables/DT_bootstrap.css" /> 
+ 	<link rel="stylesheet" href="css/stockList.css" /> 
+ 	
+ 	<!-- 新引入的 -->
+ 	<link rel="stylesheet" href="css/button.css">
+ 	<script type="text/javascript" src="js/jquery.marquee.min.js"></script>
+ 	<script src="js/jquery.flot.min.js" type="text/javascript"></script> 
+<script src="js/jquery.flot.animator.min.js" type="text/javascript"></script>
+<link href="http://fonts.googleapis.com/css?family=Muli:300,300i,400,400i" rel="stylesheet">
+ 	
+ 	<script>
+ 	$(document).ready(function() {
+ 		$("#myCarousel").carousel({
+ 			interval: 3000
+ 		});
+ 		$("#myCarousel").carousel('cycle');
+ 		
+ 		
+	$("#btn_query").click(function(){
+			   $('#dynamic-table1').bootstrapTable('destroy');
+			   $('#dynamic-table1').bootstrapTable({
+					url : 'usert/searchSpecificStock.action', //请求后台的URL（*）
+					method : 'get', //请求方式（*）					
+					queryParams : { //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的		
+						sinfo:$("#searchInfo").val()	
+					}
+				});
+	});
+	
+	$("#btn_queryAll").click(function(){
+		$('#dynamic-table1').bootstrapTable('destroy');
+		$('#dynamic-table1').bootstrapTable({
+			url : 'usert/searchStock.action', //请求后台的URL（*）
+			method : 'get', //请求方式（*）					
+			
+		});
+	})
+	$("#goBack").click(function(){
+    	location.href = "http://localhost:8088/ssf/index.html";
+    });
+	$("#line1").mouseover(function(){
+		  $(this).children().css("background-color","#F7F7F7");
+		  $("#picDisplay1").attr("src","http://image.sinajs.cn/newchart/daily/n/sh600812.gif");
+		  $("#picDisplay2").attr("src","http://image.sinajs.cn/newchart/min/n/sh600812.gif");
+		});
+	$("#line1").mouseleave(function(){
+		$(this).children().css("background-color","white");
+		});
+	$("#line2").mouseover(function(){
+		  $(this).children().css("background-color","#F7F7F7");
+		  $("#picDisplay1").attr("src","http://image.sinajs.cn/newchart/daily/n/sh600821.gif");
+		  $("#picDisplay2").attr("src","http://image.sinajs.cn/newchart/min/n/sh600821.gif");
+		});
+	$("#line2").mouseleave(function(){
+		$(this).children().css("background-color","white");
+		});
+	$("#line3").mouseover(function(){
+		  $(this).children().css("background-color","#F7F7F7");
+		  $("#picDisplay1").attr("src","http://image.sinajs.cn/newchart/daily/n/sh600856.gif");
+		  $("#picDisplay2").attr("src","http://image.sinajs.cn/newchart/min/n/sh600856.gif");
+		});
+	$("#line3").mouseleave(function(){
+		$(this).children().css("background-color","white");
+		});
+	$("#line4").mouseover(function(){
+		  $(this).children().css("background-color","#F7F7F7");
+		  $("#picDisplay1").attr("src","http://image.sinajs.cn/newchart/daily/n/sh600826.gif");
+		  $("#picDisplay2").attr("src","http://image.sinajs.cn/newchart/min/n/sh600826.gif");
+		});
+	$("#line4").mouseleave(function(){
+		$(this).children().css("background-color","white");
+		});
+	$("#line5").mouseover(function(){
+		  $(this).children().css("background-color","#F7F7F7");
+		  $("#picDisplay1").attr("src","http://image.sinajs.cn/newchart/daily/n/sh600835.gif");
+		  $("#picDisplay2").attr("src","http://image.sinajs.cn/newchart/min/n/sh600835.gif");
+		});
+	$("#line5").mouseleave(function(){
+		$(this).children().css("background-color","white");
+		});
+	
+	
+	$(document).on('click','#add-without-image1',function(){
+		 //alert(345);
+		 //获取动态title属性的值
+		 var uid=$(this).attr("title");
+		// alert("uid : "+uid);	 
+location.href="http://localhost:8088/ssf/wines.html?uid="+uid;
+	});
+});
+
+
+</script>
+</head> 
+
+
+<body class="pricing-page" >  
+    <!-- ******HEADER****** --> 
+     <div id="myCarousel" class="carousel slide" style=" width:100%;height:250px">
+    <!-- 轮播（Carousel）指标 -->
+    <ol class="carousel-indicators" >
+        <li data-target="#myCarousel" data-slide-to="0" 
+            class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>   
+    <!-- 轮播（Carousel）项目 -->
+    <div class="carousel-inner" style=" width:100%;height:250px">
+        <div class="item active">
+            <img src="images/i22.jpg" alt="First slide" style=" width:100%;height:250px">
+        </div>
+        <div class="item">
+            <img src="images/23.jpg" alt="Second slide" style=" width:100%;height:250px">
+        </div>
+        <div class="item">
+            <img src="images/i23.jpg" alt="Third slide" style=" width:100%;height:250px">
+        </div>
+    </div>
+    <!-- 轮播（Carousel）导航 -->
+   
+    <!-- 控制按钮 -->
+    
+</div> 
+    
+    <p id = "head1" style="left:750px;top:10px;position:absolute;color:white">股票查询</p>
+    <section class="panel">
+        <header class="panel-heading">
+            
+            
+        </header>
+        
+        <!-- 增删改按钮  
+        <div id="toolbar" class="btn-group">
+            <button id="btn_add" type="button" class="btn btn-default">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
+            </button>
+            <button id="btn_edit" type="button" class="btn btn-default">
+                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改
+            </button>
+            <button id="btn_delete" type="button" class="btn btn-default">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
+            </button>
+        </div>
+        -->
+        <button id = "goBack" class="button button-large button-plain button-border button-circle"  style = "position:absolute; left:10px; top:10px"><i class="fa fa-reply"></i></button>
+        <div class="w3_stocks">
+						<div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs" style="width:300px">
+							<ul id="myTab2" class="nav nav-tabs nav-tabs1" role="tablist" style="width:300px">
+								<li role="presentation" class="active"><a href="#home2" id="home2-tab" role="tab" data-toggle="tab" aria-controls="home2" aria-expanded="true">热门股票</a></li>
+								
+							</ul>
+							<div id="myTabContent2" class="tab-content" style="width:300px">
+								<div role="tabpanel" class="tab-pane fade in active" id="home2" aria-labelledby="home2-tab">
+									<div class="w3l_stocks" >
+										<div class="w3l_stocks1" >
+											<a id="line1" href="http://localhost:8088/ssf/wines.html?uid=600812"><h4>华北制药(sh600812)</h4></a>
+											<p>6.23<i style=""><span class="caret "></span>-0.210<label>(-3.360%)</label></i></p>
+										</div>
+										<div class="w3l_stocks1">
+											<a id="line2" href="http://localhost:8088/ssf/wines.html?uid=600821"><h4>津劝业(sh600821)</h4></a>
+											<p>7.35<i style="color:#00AA00"><span class="caret"></span>-0.400<label>(-5.161%)</label></i></p>
+										</div>
+										<div class="w3l_stocks1">
+											<a id="line3" href="http://localhost:8088/ssf/wines.html?uid=600856"><h4>中天能源(sh600856)</h4></a>
+											<p>10.46<i style="color:#00AA00"><span class="caret"></span>-0.230<label>(-2.152%)</label></i></p>
+										</div>
+										<div class="w3l_stocks1">
+											<a id="line4" href="http://localhost:8088/ssf/wines.html?uid=600826"><h4>兰生股份(sh600826)</h4></a>
+											<p>17.450<i style="color:#00AA00"><span class="caret"></span>-0.760<label>(-4.174%)</label></i></p>
+										</div>
+										<div class="w3l_stocks1">
+											<a id="line5" href="http://localhost:8088/ssf/wines.html?uid=600835"><h4>上海机电(sh600835)</h4></a>
+											<p>19.84<i style="color:#00AA00"><span class="caret"></span>-0.170<label>(-0.850%)</label></i></p>
+										</div>
+									</div>
+								</div>
+								<div role="tabpanel" class="tab-pane fade" id="latest2" aria-labelledby="latest2-tab">
+									<div class="w3l_stocks">
+										<div class="w3l_stocks1">
+											<a href="single.html"><h4>Kotak Select Focus Fund - Regular (G)</h4></a>
+											<p>25.975<i style="color:#00AA00;"><span class="caret caret1"></span>0.06<label>(0.25%)</label></i></p>
+										</div>
+										<div class="w3l_stocks1">
+											<a href="single.html"><h4>Birla SL Frontline Equity (G)</h4></a>
+											<p>180.83<i style="color:#00AA00;"><span class="caret caret1"></span>0.14<label>(0.08%)</label></i></p>
+										</div>
+										<div class="w3l_stocks1">
+											<a href="single.html"><h4>SBI Blue Chip Fund (G)</h4></a>
+											<p>31.918<i style="color:#00AA00;"><span class="caret caret1"></span>0.02<label>(0.05%)</label></i></p>
+										</div>
+										<div class="w3l_stocks1">
+											<a href="single.html"><h4>Principal Emerging Bluechip (G)</h4></a>
+											<p>80.11<i style="color:#00AA00;"><span class="caret caret1"></span>0.37<label>(0.46%)</label></i></p>
+										</div>
+										<div class="w3l_stocks1">
+											<a href="single.html"><h4>SBI Magnum Multicap Funds (G)</h4></a>
+											<p>37.592<i style="color:#00AA00;"><span class="caret caret1"></span>0.14<label>(0.36%)</label></i></p>
+										</div>
+									</div>
+								</div>
+								<div role="tabpanel" class="tab-pane fade" id="experts2" aria-labelledby="experts2-tab">
+									<div class="w3l_stocks">
+										<div class="w3l_stocks1">
+											<a href="single.html"><h4 style="text-transform:capitalize;">Copper Spt 25,2016</h4></a>
+											<p>318.10<i><span class="caret"></span>-4.05<label>(-1.26%)</label></i></p>
+										</div>
+										<div class="w3l_stocks1">
+											<a href="single.html"><h4 style="text-transform:capitalize;">natural gas Spt 24,2016</h4></a>
+											<p>177.10<i style="color:#00AA00;"><span class="caret caret1"></span>2.1<label>(1.2%)</label></i></p>
+										</div>
+										<div class="w3l_stocks1">
+											<a href="single.html"><h4 style="text-transform:capitalize;">crude oil Spt 23,2016</h4></a>
+											<p>3231.00<i><span class="caret"></span>-61<label>(-1.85%)</label></i></p>
+										</div>
+										<div class="w3l_stocks1">
+											<a href="single.html"><h4 style="text-transform:capitalize;">Silver Spt 22,2016</h4></a>
+											<p>44726.00<i><span class="caret"></span>-718<label>(-1.58%)</label></i></p>
+										</div>
+										<div class="w3l_stocks1">
+											<a href="single.html"><h4 style="text-transform:capitalize;">gold Spt 21,2016</h4></a>
+											<p>31285.00<i><span class="caret"></span>-119<label>(-0.38%)</label></i></p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<img id="picDisplay1" src="http://image.sinajs.cn/newchart/daily/n/sh600812.gif" style="position:absolute;left:330px; top:260px;width:600px;height:340px ">
+					<img id="picDisplay2" src="http://image.sinajs.cn/newchart/min/n/sh600812.gif" style="position:absolute;left:1030px; top:260px;width:600px;height:340px ">
+         
+         <p style = "text-align:center;font-size:20px; color:white">大盘指数</p>
+         <img  src="http://image.sinajs.cn/newchart/min/n/sh000001.gif" style="width:500px;height:340px "> 
+         <img  src="http://image.sinajs.cn/newchart/daily/n/sh000001.gif" style="width:500px;height:340px;position:relative; left:100px "> 
+         <img  src="http://image.sinajs.cn/newchart/weekly/n/sh000001.gif" style="width:500px;height:340px;position:relative; left:190px ">           
+        <div class="panel-body" id="tooll" style="padding-bottom:0px;">
+        <div class="panel panel-default" >
+            <div class="panel-heading">查询条件</div>
+            <div class="panel-body">
+                <form id="formSearch" class="form-horizontal">
+                    <div class="form-group" style="margin-top:15px">
+                        <label class="control-label col-sm-1" for="txt_search_departmentname">股票号或股票名 </label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="searchInfo">
+                        </div>
+                        <div class="col-sm-4" style="text-align:left;">
+                            <button type="button" style="margin-left:50px" id="btn_query" class="btn btn-primary">查询</button>
+                            <button type="button" style="margin-left:50px" id="btn_queryAll" class="btn btn-primary">查询全部</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div> 
+        </div>      
+        
+        <div class="panel-body">
+        <div class="adv-table">
+        <table  
+		id="dynamic-table1"
+		  data-url="usert/searchStock.action"  
+       data-page-list="[5, 10, 15]"
+       data-toggle="table"
+       data-striped="true"
+       data-search="true"
+ 	   data-show-export="true"
+ 	   data-show-refresh= "true"
+       data-pagination="true" 
+	   data-click-to-select="true"	
+	   data-show-columns="true"
+        data-side-pagination="client"
+        >
+        <thead>
+        <!-- {"name":"peter","id":1,"pwd":"122"} -->
+        <tr>
+            <th data-field="sid">股票号</th>
+            <th data-field="sname">股票名</th>
+            <th data-field="openTod">今日最高价</th>
+             <th data-field="closeYes">今日最低价</th>
+             <th data-field="volume">成交股数</th>
+             <th data-field="turnover">成交金额</th>
+            <th data-field="edit" class="hidden-phone">详细信息 </th>
+        </tr>
+        </thead>
+       
+        </table>
+        </div>
+        </div>
+        </section>
+    <ul class="breadcrumb" style = "position:absolute; left:80px; top:15px;background-color:rgba(0,0,0,0)">
+							<li>
+							    <i class="icon-home home-icon"></i>
+								<a href="http://localhost:8088/ssf/index.html" style = "font-size:20px">首页</a>
+							</li>
+							<li class="active" style = "font-size:20px">查询</li>
+						</ul>
+  
+	<a  class="button button-glow button-rounded button-caution" style = "position:absolute; top:610px; left:150px">大盘分时线</a>				
+	<a  class="button button-glow button-rounded button-caution" style = "position:absolute; top:610px; left:760px">大盘日k线</a>				
+	<a  class="button button-glow button-rounded button-caution" style = "position:absolute; top:610px; left:1350px">大盘周k线</a>				
+					
+    
+    
+    
+    
+    
+ 
+    <!-- Javascript -->          
+   
+     <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.scrollTo.min.js"></script>
+    <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
+
+    <!--common script for all pages-->
+    <script src="js/common-scripts.js"></script>
+    
+	<script src="js/jquery-ui-1.9.2.custom.min.js"></script>
+	<script src="js/jquery-migrate-1.2.1.min.js"></script>
+	<script src="js/modernizr.min.js"></script>
+	<script src="js/jquery.nicescroll.js"></script>
+    <script src="js/bootstrap-table.js"></script>  
+	<script src="js/bootstrap-table-export.js"></script>
+	<script src="js/bootstrap-table-zh-CN.js"></script>
+	<script src="js/tableExport.js"></script>
+
+	<!--dynamic table-->
+	<script type="text/javascript" src="js/advanced-datatable/js/jquery.dataTables.js"></script>
+	<script type="text/javascript" src="js/data-tables/DT_bootstrap.js"></script>
+	<!--dynamic table initialization -->
+	<script src="js/dynamic_table_init.js"></script>
+            
+</body>
+</html> 
+
+

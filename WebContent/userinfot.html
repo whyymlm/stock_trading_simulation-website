@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="ThemeBucket">
+  <title>Dynamic Table</title>
+<link href="web/css/bootstrap.min.css" rel="stylesheet"	type="text/css" />
+<link rel="stylesheet" href="web/css/bootstrap-table.min.css">
+<link rel="stylesheet" href="web/css/bootstrap-select.min.css">
+<link rel="stylesheet" href="web/css/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" href="web/css/cropper.min.css">
+<link href="web/css/main.css" rel="stylesheet">
+<link href="web/css/style-responsive.css" rel="stylesheet">
+<link href="web/css/style.css" rel="stylesheet">  
+<script src="web/js/jquery-1.10.2.min.js"></script>
+<script src="web/js/echarts.min.js"></script>
+<script src="web/js/bootstrap-table.min.js"></script>
+<script src="web/js/ajaxfileupload.js"></script>
+<!-- Latest compiled and minified Locales -->
+<script src="web/js/bootstrap-table-zh-CN.min.js"></script>
+<script src="web/js/bootstrap-select.min.js"></script>
+<script src="web/js/bootstrap-datetimepicker.min.js"></script>
+<script src="web/js/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="web/js/cropper.min.js"></script>
+<script src="web/js/main.js"></script>
+<script src="web/js/bootstrap.min.js"></script>
+<script src="web/js/jquery.nicescroll.js"></script>
+<script src="web/js/scripts.js"></script>
+<script>
+$(document).ready(function() {
+	alert(234);
+	
+	$("#btnSend").click(function(){
+			   alert("sex "+$('#sex3').val());
+			   $('#dynamic-table1').bootstrapTable('destroy');
+			   $('#dynamic-table1').bootstrapTable({
+					url : 'usert/searchUser.action', //请求后台的URL（*）
+					method : 'get', //请求方式（*）
+					toolbar : '#tooll', //工具按钮用哪个容器					
+					queryParams : { //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的		
+						uname:$('#usn3').val(),
+						upwd:$('#pwd3').val()
+					}
+				});
+	});
+});
+function ss(){
+	$('#dynamic-table1').bootstrapTable({
+		url : 'usert/searchUser.action', //请求后台的URL（*）
+		method : 'get', //请求方式（*）
+		toolbar : '#tooll', //工具按钮用哪个容器
+		striped : true, //是否显示行间隔色
+		cache : false, //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+		pagination : true, //是否显示分页（*）
+		showColumns:true,
+		sortable : true, //是否启用排序 
+		sortStable:true,//queryParams : getParam,//传递参数（*）
+		sidePagination : "client", //分页方式：client客户端分页，server服务端分页（*）
+		pageNumber : 1, //初始化加载第一页，默认第一页
+		pageSize : 10, //每页的记录行数（*）
+		strictSearch : true,
+		minimumCountColumns : 2, //最少允许的列数
+		clickToSelect : true, //是否启用点击选中行
+		showRefresh : false, //是否显示刷新按钮
+		uniqueId : "stuid", //每一行的唯一标识，一般为主键列
+		cardView : false, //是否显示详细视图
+		onLoadError : function(data) {
+			$('#dynamic-table1').bootstrapTable('removeAll');
+		},
+		columns : [
+				{
+					checkbox : true
+				},{
+					field : 'id',
+					title : '学号'
+				}, {
+					field : 'name',
+					title : '姓名'
+				}, {
+					field : 'pwd',
+					title : '班级'
+				} ]
+	});
+}
+function getParam() {
+	var temp = { //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的		
+		uname:$('#usn3').val(),
+		upwd:$('#pwd3').val()
+	};
+	return temp;
+}
+</script>
+
+</head>
+
+<body class="sticky-header">
+
+
+   <!--  -->     
+      <div class="row" id="tooll">
+            <div class="col-lg-12" >
+                <section class="panel">
+                    <header class="panel-heading">
+                        Inline form 4
+                    </header>
+					 <form class="form-inline" role="form">
+                    <div class="panel-body">                       
+                            <div class="form-group">
+                                <label  for="exampleInputEmail2">Name:</label>
+                                <input type="text" class="form-control" id="usn3" placeholder="Username">
+                            </div>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <div class="form-group">
+                                <label  for="exampleInputPassword2">Password:</label>
+                                <input type="password" class="form-control" id="pwd3" placeholder="Password">
+                            </div>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <div class="form-group">
+                                <label  for="exampleInputPassword2">Password1:</label>
+                                <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password">
+                            </div>
+  					</div>
+					 <div class="panel-body">                       
+                            <div class="form-group">
+                                <label  for="exampleInputEmail2">Name:</label>
+                                <input type="text" class="form-control" id="exampleInputEmail2" placeholder="Username">
+                            </div>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <div class="form-group">
+                               <div class="radio ">
+                                                    <label>男:</label>
+													<input tabindex="3" type="radio" value="man" name="sex3" id="sex3" >
+                                                    
+                                                </div>
+												<div class="radio ">
+												<label>女:</label>
+                                                    <input tabindex="3" type="radio" value="woman" id="sex3" name="sex3">
+                                                    
+                                                </div>
+                            </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input  type="button" id="btnSend"  class="btn btn-primary" value="    Sign in    " />            
+
+                    </div>
+					</form>
+                </section>
+
+            </div>
+        </div>   
+   <!--  -->     
+        <div class="adv-table">
+        
+       <table  
+		id="dynamic-table1"
+		  data-url="usert/searchUser.action"  
+       data-page-list="[5, 10, 15]"
+       data-toggle="table"
+       data-search="true"    
+       data-show-toggle="true"
+ 	   data-show-export="true"
+       data-pagination="true" 
+	   data-click-to-select="true"	
+	   data-show-columns="true"
+        data-side-pagination="client">
+        <thead>
+        <!-- {"name":"peter","id":1,"pwd":"122"} -->
+        <tr>
+            <th data-field="id">Id</th>
+            <th data-field="name">用户名</th>
+            <th data-field="pwd">Password</th>
+            <th class="hidden-phone">Engine version</th>
+            <th class="hidden-phone">CSS grade</th>
+        </tr>
+        </thead>
+       
+        </table>
+        </div>
+       
+
+
+</body>
+</html>

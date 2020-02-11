@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->  
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->  
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->  
+<head>
+    <title></title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">    
+    <link rel="shortcut icon" href="favicon.ico">  
+    <!---<link href='http://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700,700italic,900,900italic,300italic,300' rel='stylesheet' type='text/css'> 
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,700,300,100' rel='stylesheet' type='text/css'>--->
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="assets1/plugins/bootstrap/css/bootstrap.min.css">   
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="assets1/plugins/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="assets1/plugins/flexslider/flexslider.css">
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="assets1/css/styles.css">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head> 
+
+<body class="signup-page access-page has-full-screen-bg">
+    <div class="upper-wrapper">
+        <!-- ******HEADER****** -->
+        <header class="header">
+            <div class="container">       
+                <h1 class="logo">
+                    <a ><span class="logo-icon"></span><span class="text">股票系统</span></a>
+                </h1><!--//logo-->
+                                     
+            </div><!--//container-->
+        </header><!--//header-->
+        
+        <!-- ******Signup Section****** --> 
+        <section class="signup-section access-section section">
+            <div class="container">
+                <div class="row">
+                    <div class="form-box col-md-offset-2 col-sm-offset-0 xs-offset-0 col-xs-12 col-md-8">     
+                        <div class="form-box-inner">
+                            <h2 class="title text-center">注册界面</h2>  
+                                        
+                            <div class="row">
+                                <div class="form-container col-xs-12 col-md-5">
+                                    <form class="signup-form">                
+                                        <div class="form-group email">
+                                            <label class="sr-only" for="signup-email">你的用户名</label>
+                                            <input id="signup-email" type="text" class="form-control login-email" placeholder="用户名">
+                                        </div><!--//form-group-->
+                                        <div class="form-group email">
+                                            <label class="sr-only" for="signup-email">你的昵称</label>
+                                            <input id="signup-email2" type="text" class="form-control login-email" placeholder="昵称">
+                                        </div><!--//form-group-->
+                                        <div class="form-group password">
+                                            <label class="sr-only" for="signup-password">你的密码</label>
+                                            <input id="signup-password" type="password" class="form-control login-password" placeholder="密码">
+                                        </div><!--//form-group-->
+                                        <button type="button" id = "regester"class="btn btn-block btn-cta-primary">注册</button>
+                                        
+                                        <p class="lead">已经有账户了? <a class="login-link" id="login-link" href="login.html">点击登录</a></p>  
+                                    </form>
+                                </div><!--//form-container-->
+                                <div class="social-btns col-md-offset-1 col-sm-offset-0 col-sm-offset-0 col-xs-12 col-md-5">  
+                                    <div class="divider"><span>Or</span></div>                      
+                                    
+                                        <img src = "images/登录.jpeg" style = "height:300px; width:300px;position:relative; left:-30px"/>
+                                    
+                                    
+                                </div><!--//social-login-->
+                            </div><!--//row-->
+                        </div><!--//form-box-inner-->
+                    </div><!--//form-box-->
+                </div><!--//row-->
+            </div><!--//container-->
+        </section><!--//signup-section-->
+    </div><!--//upper-wrapper-->
+    
+    
+ 
+    <!-- Javascript -->          
+    <script type="text/javascript" src="assets1/plugins/jquery-1.12.3.min.js"></script>
+    <script type="text/javascript" src="assets1/plugins/bootstrap/js/bootstrap.min.js"></script> 
+    <script type="text/javascript" src="assets1/plugins/bootstrap-hover-dropdown.min.js"></script>
+    <script type="text/javascript" src="assets1/plugins/back-to-top.js"></script>
+    <script type="text/javascript" src="assets1/plugins/jquery-placeholder/jquery.placeholder.js"></script>
+    <script type="text/javascript" src="assets1/plugins/FitVids/jquery.fitvids.js"></script> 
+    <script type="text/javascript" src="assets1/plugins/flexslider/jquery.flexslider-min.js"></script>  
+    <script type="text/javascript" src="assets1/js/main.js"></script>
+    <script>
+    $(document).ready(function(){
+    	$("#regester").click(function(){
+			if($("#signup-email").val().length == 0 || $("#signup-password").val().length ==0 || $("#signup-email2").val().length == 0)
+			{
+				alert("请输入完整的注册信息");
+			}
+			else{
+				$.ajax({
+			    	url:"usert/regester.action",
+				    method: "POST",
+				    data: {"uid2":$("#signup-email").val(),
+					    "pwd2":$("#signup-password").val(),
+					    "name2":$("#signup-email2").val()
+					    },
+					    
+				    dataType: "text",
+				    success:function(data){
+					     
+					     if(data == 0){
+						      alert("该用户名已经存在!");
+						
+					     }else if(data == 1){
+					     	alert("成功!");
+						      location.href="http://localhost:8088/ssf/index.html";
+					     }
+					     else{
+					    	 alert("失败!");
+					     }
+				    },
+				    error:function(){
+					     alert("error!");
+					
+				    }
+			    });
+			}
+			
+		});
+    });
+    </script>
+            
+</body>
+</html> 
+
+

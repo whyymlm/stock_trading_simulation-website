@@ -1,0 +1,176 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Products</title>   
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
+<!-- Custom Theme files -->
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
+<link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
+<!-- Custom Theme files -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); }
+</script>
+<meta name="keywords" content="" />
+
+<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all" /> 
+  	<link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  	<link rel="stylesheet" href="css/bootstrap-table.css" />
+  	<link href="js/advanced-datatable/css/demo_page.css" rel="stylesheet" />
+  	<link href="js/advanced-datatable/css/demo_table.css" rel="stylesheet" />
+ 	<link rel="stylesheet" href="js/data-tables/DT_bootstrap.css" /> 
+ 	
+ 
+   
+ 	
+    
+
+
+
+	<script type="text/javascript">
+			jQuery(document).ready(function($) {
+				$(".scroll").click(function(event){		
+					event.preventDefault();
+					$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+				});
+				 $(document).on('click','#add-without-image1',function(){
+					 //alert(345);
+					 //获取动态title属性的值
+					 var uid=$(this).attr("title");
+					// alert("uid : "+uid);	 
+			location.href="http://localhost:8088/ssf/wines.html?uid="+uid;
+				});
+			});
+	</script>
+<!-- //end-smoth-scrolling -->
+</head>
+<body>
+<!--banner start here-->
+<div class="banner-1">
+	  <div class="container">
+  <!--header start here-->
+	 <div class="header">
+			
+				<div class="logo">
+					<h1>股票分析</h1>
+				</div>
+					<nav class="navbar navbar-default">
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+						</div>
+						<!--/.navbar-header-->
+						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+							<ul class="nav navbar-nav">
+								<li ><a href="main.html"> 主页</a></li>
+								<li><a href="about.html" id = "">最新咨询</a></li>
+								<li><a href="wines.html">股市详情</a></li>
+								<li class="active"><a href="products.html">股票查询</a></li>
+								<li><a href="shortcodes.html">交易系统</a></li>
+								<li><a href="contact.html">个人中心</a></li>
+							</ul>
+						</div>
+						<!--/.navbar-collapse-->
+					</nav>
+				<div class="search-box">
+					<div id="sb-search" class="sb-search">
+						<form action="#" method="post">
+							<input class="sb-search-input" placeholder="Enter your search term..." type="search" name="search" id="search">
+							<input class="sb-search-submit" type="submit" value="">
+							<span class="sb-icon-search"> </span>
+							</form>
+					</div>
+				</div>
+					<div class="clearfix"> </div>
+
+				<!-- search-scripts -->
+					<script src="js/classie.js"></script>
+					<script src="js/uisearch.js"></script>
+					<script>
+						new UISearch( document.getElementById( 'sb-search' ) );
+					</script>
+				<!-- //search-scripts -->
+
+			
+		</div>
+<!--header end here-->
+
+</div>
+</div>
+<!--banner end here-->
+<!--products-->
+
+  <section class="panel">
+        <header class="panel-heading">
+            
+            <span class="tools pull-right">
+                <a href="javascript:;" class="fa fa-chevron-down"></a>
+                <a href="javascript:;" class="fa fa-times"></a>
+             </span>
+        </header>
+        <div class="panel-body">
+        <div class="adv-table">
+        <table  
+		id="dynamic-table1"
+		  data-url="usert/searchStock.action"  
+       data-page-list="[5, 10, 15]"
+       data-toggle="table"
+       data-search="true"    
+       data-show-toggle="true"
+ 	   data-show-export="true"
+       data-pagination="true" 
+	   data-click-to-select="true"	
+	   data-show-columns="true"
+        data-side-pagination="client">
+        <thead>
+        <!-- {"name":"peter","id":1,"pwd":"122"} -->
+        <tr>
+            <th data-field="sid">股票号</th>
+            <th data-field="sname">股票名</th>
+            <th data-field="openTod">今日最高价</th>
+             <th data-field="closeYes">今日最低价</th>
+             <th data-field="volume">今日开盘价</th>
+             <th data-field="turnover">昨日收盘价</th>
+            <th data-field="edit" class="hidden-phone">详细信息 </th>
+        </tr>
+        </thead>
+       
+        </table>
+        </div>
+        </div>
+        </section>
+<!--footer-->
+ 
+    <!-- js placed at the end of the document so the pages load faster -->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.scrollTo.min.js"></script>
+    <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
+
+    <!--common script for all pages-->
+    <script src="js/common-scripts.js"></script>
+    
+	<script src="js/jquery-ui-1.9.2.custom.min.js"></script>
+	<script src="js/jquery-migrate-1.2.1.min.js"></script>
+	<script src="js/modernizr.min.js"></script>
+	<script src="js/jquery.nicescroll.js"></script>
+    <script src="js/bootstrap-table.js"></script>  
+	<script src="js/bootstrap-table-export.js"></script>
+	<script src="js/bootstrap-table-zh-CN.js"></script>
+	<script src="js/tableExport.js"></script>
+
+	<!--dynamic table-->
+	<script type="text/javascript" src="js/advanced-datatable/js/jquery.dataTables.js"></script>
+	<script type="text/javascript" src="js/data-tables/DT_bootstrap.js"></script>
+	<!--dynamic table initialization -->
+	<script src="js/dynamic_table_init.js"></script>
+
+</body>
+</html>

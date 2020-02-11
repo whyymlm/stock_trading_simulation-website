@@ -1,0 +1,230 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title> New Document </title>
+  <meta name="Generator" content="EditPlus">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+ </head>
+ 
+ <body>
+    <div style="margin:50px;width:900px;">
+            <fieldset style="float:leftwidth:240px;height:240px;padding:0px;background:#E6E6E6;float:left">
+                <canvas id="photo" width=240px height=240px;></canvas>
+            </fieldset>
+            <div style="float:left;width:180px;font-size:10px;font-family:'微软雅黑';word-wrap:break-word">
+                <canvas id="bPhoto" width="180px" height="180px"></canvas>
+                <span>180×180</span>
+            </div>
+            <div style="float:left;width:100px;font-size:10px;font-family:'微软雅黑';word-wrap:break-word">
+                <canvas id="cPhoto" width="100px" height="100px"></canvas>
+                <span>100×100</span>
+            </div>
+            <div style="float:left;width:50px;font-size:10px;font-family:'微软雅黑';word-wrap:break-word">
+                <canvas id="mPhoto" width="50px" height="50px"></canvas>
+                <span>50×50</span>
+            </div>
+            <div style="float:left;width:50px;font-size:10px;font-family:'微软雅黑';word-wrap:break-word">
+                <canvas id="sPhoto" width="30px" height="30px"></canvas>
+                <span>30×30</span>
+            </div>
+    </div>
+    <script type="text/javascript">
+        var photo={
+            "this":document.getElementById("photo"),
+            "context":document.getElementById("photo").getContext("2d"),
+            "width":document.getElementById("photo").width,
+            "height":document.getElementById("photo").height
+        };
+ 
+        var photos={
+            "bPhoto":{
+                "context":document.getElementById("bPhoto").getContext("2d"),
+                "width":document.getElementById("bPhoto").width,
+                "height":document.getElementById("bPhoto").height
+            },"mPhoto":{
+                "context":document.getElementById("mPhoto").getContext("2d"),
+                "width":document.getElementById("mPhoto").width,
+                "height":document.getElementById("mPhoto").height
+            },"sPhoto":{
+                "context":document.getElementById("sPhoto").getContext("2d"),
+                "width":document.getElementById("sPhoto").width,
+                "height":document.getElementById("sPhoto").height
+            },"cPhoto":{
+                "context":document.getElementById("cPhoto").getContext("2d"),
+                "width":document.getElementById("cPhoto").width,
+                "height":document.getElementById("cPhoto").height
+            }
+        };
+        var imageData = null; 
+        var rectPoint = [];
+        //选择框大小坐标
+        var rect = {
+            "x":20,
+            "y":20,
+            "width":200,
+            "height":200
+        };
+        //原图像大小坐标
+        var photoRect = {
+            "x":20,
+            "y":20,
+            "width":200,
+            "height":200
+        }
+        var isClick = false;
+        var move={};
+        var image ;
+        //图片载入
+        function loadImage(src){
+            image = new Image();
+            image.src = src;
+            photo.context.drawImage(image,photoRect.x,photoRect.y,photoRect.width,photoRect.height);
+            imageData = photo.context.getImageData(photoRect.x,photoRect.y,photoRect.width,photoRect.height);
+        }
+        //绘制图片
+        function drawImage(bPhoto,mPhoto,sPhoto,cPhoto){
+            var rectImageData = photo.context.getImageData(rect.x,rect.y,rect.width,rect.height);
+             
+            var ncav = document.createElement("canvas");
+            ncav.width = rectImageData.width;
+            ncav.height = rectImageData.height;
+ 
+            var cxt = ncav.getContext("2d");
+            cxt.putImageData(rectImageData,0,0);
+            var image = new Image();
+            image.src = cxt.canvas.toDataURL();
+            bPhoto.drawImage(image,0,0,photos.bPhoto.width,photos.bPhoto.height);
+            cPhoto.drawImage(image,0,0,photos.cPhoto.width,photos.cPhoto.height);
+            mPhoto.drawImage(image,0,0,photos.mPhoto.width,photos.mPhoto.height);
+            sPhoto.drawImage(image,0,0,photos.sPhoto.width,photos.sPhoto.height);
+             
+        }
+        //绘制选择框
+        function drawDotted(rect){
+            var context = photo.context;
+            context.save();
+             
+            context.strokeStyle ="#FFFFFF";
+         
+            context.strokeRect(rect.x,rect.y,rect.width,rect.height);
+             
+            context.stroke();
+        }
+        //绘制伸缩框
+        function drawRectConer(rect,w){
+            var context = photo.context;
+            context.save();
+            context.strokeStyle ="#FFFFFF";
+            context.lineWidth = 0.5;
+            context.clearRect(rect.width+rect.x-w,rect.height+rect.y-w,2*w,2*w);
+            context.stroke();
+        }
+        //将为选择的部分透明度调节
+        function drawFilter(rect){
+            var context = photo.context;
+            for(var i=0;i<imageData.width;i++){
+                for(var j=0;j<imageData.height;j++){
+                    var index=j*imageData.width+i;
+                    var p = index*4;
+                    if(!isPointInRect(point={"x":i,"y":j}))
+                        imageData.data[p+3] = imageData.data[p+3] - 50;
+                }
+            }
+            context.putImageData(imageData,photoRect.x,photoRect.y);
+        }
+        //判断鼠标是否在伸缩选择框内
+        function isRectConer(point,w){
+            if((point.x >= (rect.x+rect.width-w) && point.x <= (rect.x+rect.width+w))&&(point.y >= (rect.y+rect.height-w) && point.y <= (rect.y+rect.height+w)))
+                return true;
+            return false;
+        }
+        //判断鼠标是否是选择框内
+        function isRect(point){
+            if((point.x>=rect.x&&point.x<=(rect.x+rect.width))
+                &&(point.y>=rect.y&&point.y<=(rect.y+rect.height)))
+                return true;
+            return false;
+        }
+         //判断像素点是否在选择框内
+        function isPointInRect(point){
+            if((point.x>=rect.x-photoRect.x&&point.x<=(rect.width+rect.x-photoRect.x))
+                &&(point.y>=rect.y-photoRect.y&&point.y<=(rect.height+rect.y-photoRect.y)))
+                return true;
+            return false;
+        }
+        //移动选择框
+        function moveRect(dx,dy){
+            if(rect.x+dx>photoRect.x && rect.y+dy >photoRect.y && (rect.x+dx+rect.width)<photoRect.width+photoRect.x && (rect.y+dy+rect.height)<photoRect.height+photoRect.y)
+            {   
+                rect.x += dx;
+                rect.y += dy;
+            }
+        }
+        window.onmousedown = function(e){
+            var event = window.event||e;
+            isClick = true;
+            move.px=event.offsetX/2;
+            move.py=event.offsetY/2;
+        }
+        window.onmouseup = function(e){
+            var event = window.event||e;
+            isClick = false;
+        }
+        photo.this.onmousemove = function(e){
+            var event = window.event||e;
+            var x=event.offsetX;
+            var y=event.offsetY;
+            move.nx=event.offsetX/2;
+            move.ny=event.offsetY/2;
+            //如果鼠标位于伸缩框内、
+            if(isRectConer(point={"x":x,"y":y},10)){
+                window.event.target.style.cursor  =   "nw-resize";  
+                if(isClick){
+                    if(x < (photoRect.width+photoRect.x) && x > (photoRect.x+10)){
+                        rect.width = x - rect.x;
+                        rect.height = x - rect.x;
+                    }
+                    render();
+                }
+            }else{
+                window.event.target.style.cursor  =   "default";   
+                isResize = false;
+            }
+            //如果鼠标位于选择框内
+            if(isRect(point={"x":x,"y":y})&&!isRectConer(point={"x":x,"y":y},10)){
+                window.event.target.style.cursor  =   "move";
+                if(isClick){
+                        var dx = move.nx -move.px;
+                        var dy = move.ny -move.py;
+                        move.px=move.nx;
+                        move.py=move.ny;
+                        moveRect(dx,dy);
+                        render();
+                }
+            }else if(!isRect(point={"x":x,"y":y})&&!isRectConer(point={"x":x,"y":y},10)){
+                window.event.target.style.cursor  =   "default";   
+            }else{
+                window.event.target.style.cursor  =   "nw-resize";  
+            }
+            render();
+        }
+        //重绘函数
+        function render(){
+            src="1.jpg";
+            loadImage(src);
+            drawFilter();
+            drawDotted(rect);
+            drawImage(photos.bPhoto.context,photos.mPhoto.context,photos.sPhoto.context,photos.cPhoto.context);
+            drawRectConer(rect,5);
+         
+        }
+        function loadDemo(){
+            render();
+        }
+         
+        window.onload = loadDemo;
+    </script>
+ </body>
+</html>

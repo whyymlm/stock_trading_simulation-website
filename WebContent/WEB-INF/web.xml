@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>ssf</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
+   <!-- 配置springmvc的路径， 启动SpringMVC配置信息
+   两个<servlet-name>name必须一致-->
+  <servlet>
+    <servlet-name>springMvc</servlet-name>
+    <!-- 从Servlet容器跳转springMVC的框架容器 -->
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <!-- 告之DispatcherServlet加载的配置文件是以下app....xml -->
+    <init-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:applicationContext.xml</param-value>
+    </init-param> 
+    <!-- 启动的加载配置文件的数量 -->
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <!-- 监听url地址栏的如果后缀是.action 
+http://localhost:8081/SSMDemo/usert/login.action?usn2=peter&pwd2=122  -->
+  <servlet-mapping>
+    <servlet-name>springMvc</servlet-name>
+    <url-pattern>*.action</url-pattern>
+  </servlet-mapping>
+  <!--  a 指定启动一个核心的容器配置文件路径  app.... -->
+  <context-param>
+		<param-name>contextConfigLocation</param-name>
+		<!-- ,classpath:默认src下-->
+		<param-value>classpath:applicationContext.xml</param-value>
+    </context-param>
+    
+    
+    <!-- spring load listener 
+     b 监听器启动SPringIOC的web容器 -->
+	<listener>
+		<description>springListener</description>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+  <!-- 配置过滤器   字符集的过滤器配置，固定的格式配置-->
+  <filter>
+    <filter-name>filter</filter-name>
+    <filter-class>com.ssf.filter.SpringFilter</filter-class>
+    <init-param>
+       <param-name>Encoding</param-name>
+       <param-value>UTF-8</param-value>
+    </init-param>
+    <init-param>
+       <param-name>enable</param-name>
+       <param-value>true</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>filter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping> 
+</web-app>
